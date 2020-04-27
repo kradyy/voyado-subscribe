@@ -1,0 +1,17 @@
+#voyado_subscribe_settings .disabled {
+	pointer-events: none;
+	opacity: .5;
+}
+
+#voyado_subscribe_settings .inside a {
+    display: block;
+    margin: 8px 0;
+}
+
+#voyado_subscribe_settings tr.api-key input {
+    min-width: 328px;
+}
+
+#voyado_subscribe_settings .metabox-holder {
+    padding-top: 0 !important;
+}
