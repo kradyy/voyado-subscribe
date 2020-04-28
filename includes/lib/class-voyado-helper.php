@@ -173,8 +173,8 @@ class Voyado_Subscribe_Helper
 			'math' => (rand(1, 2) == 1) ? '+' : '-',
 		);
 
-		if ($captChallenge['first'] > $captChallenge['second']) {
-			$captChallenge['math'] == "+";
+		if ($captChallenge['second'] > $captChallenge['first']) {
+			$captChallenge['math'] = "+";
 		}
 
 		$captAnswer = ($captChallenge['math'] == '+')

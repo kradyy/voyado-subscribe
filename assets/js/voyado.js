@@ -20,17 +20,16 @@ jQuery(document).ready(
 				eL.submit(function () {
 					$form.css('opacity', '.5').css('pointer-events', 'none');
 					jQuery('.vv-field-group input', eL).removeClass('vv_inline_error');
+					jQuery('.error', eL).remove();
 
 					$.getJSON(voyado_ajax.ajax_url, eL.serialize(), function (data, textStatus) {
 
 						if ('success' === textStatus) {
 							if (true === data.success) {
-								jQuery('#vv_embed_signup_scroll').fadeOut();
+								jQuery('#vv_embed_signup_scroll, #vv_embed_signup .error').fadeOut();
 								eL.html('<p class="notification success">' + data.success_message + '</p>');
 							} else {
 								error_container = jQuery('.error', eL);
-
-								console.log(data.classContainer);
 
 								jQuery('#'+data.classContainer, eL).addClass('vv_inline_error');
 
