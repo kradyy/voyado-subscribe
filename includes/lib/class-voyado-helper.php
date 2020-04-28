@@ -145,6 +145,8 @@ class Voyado_Subscribe_Helper
 				if ($this->vyapi->add_new_subscriber($email)) {
 					$response['success'] = true;
 					$response['success_message'] = __('Tack för att du prenumererar!', 'voyado-subscribe');
+				} else {
+					$response['error_message'] = __('Ett fel inträffade, försök igen senare.', 'voyado-subscribe');
 				}
 			}
 		}
