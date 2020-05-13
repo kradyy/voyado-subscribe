@@ -2,7 +2,7 @@
 /**
  * Settings class file.
  *
- * @package WordPress Plugin Template/Settings
+ * @package Voyado_Subscribe/Settings
  */
 
 if ( !defined( 'ABSPATH' ) ) {

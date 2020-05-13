@@ -1,9 +1,8 @@
 /**
  * Plugin Template frontend js.
  *
- *  @package WordPress Plugin Template/JS
+ *  @package Voyado_Subscribe/JS
  */
-
 
 jQuery(document).ready(
 	function ($) {
@@ -14,9 +13,8 @@ jQuery(document).ready(
 			var eL = $form;
 			var error_container = false;
 			var valid = eL[0].checkValidity();
-
+			
 			if (valid) {
-
 				eL.submit(function () {
 					$form.css('opacity', '.5').css('pointer-events', 'none');
 					jQuery('.vv-field-group input', eL).removeClass('vv_inline_error');
@@ -46,6 +44,8 @@ jQuery(document).ready(
 							}
 						}
 
+						eL.off('submit');
+
 						$form.css('opacity', '1').css('pointer-events', 'all');
 
 						return false;
@@ -61,10 +61,7 @@ jQuery(document).ready(
 
 					return false;
 				});
-			} else {
-
 			}
-
 		});
 	}
 );

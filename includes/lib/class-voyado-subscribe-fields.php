@@ -2,7 +2,7 @@
 /**
  * Post type Admin API file.
  *
- * @package WordPress Plugin Template/Includes
+ * @package Voyado_Subscribe/Includes
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Admin API class.
  */
-class Voyado_Subscribe_Admin {
+class Voyado_Subscribe_Admin
+ {
 
 	/**
 	 * Constructor function

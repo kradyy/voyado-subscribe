@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Voyado Subscribe - Jägerso
+ * Plugin Name: Voyado Subscribe - Jägersro
  * Version: 1.0.0
  * Plugin URI: 		  https://www.mildmedia.se
  * Description: 	  Integrates Voyado with Wordpress
@@ -21,6 +21,9 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Handle errors
+define('plugin_error_log', plugin_dir_path(__FILE__).'logs/debug.log');
+
 // Load plugin class files.
 require_once 'includes/class-voyado-subscribe.php';
 require_once 'includes/class-voyado-subscribe-settings.php';
@@ -37,6 +40,7 @@ require_once 'includes/lib/class-voyado-helper.php';
  * @return object Voyado_Subscribe
  */
 function voyado_subscribe() {
+
 	$instance = Voyado_Subscribe::instance( __FILE__, '1.0.0' );
 
 	if ( is_null( $instance->settings ) ) {

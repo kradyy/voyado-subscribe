@@ -7,7 +7,6 @@ if ( class_exists( 'Voyado_API' ) ) {
  * Class Voyado_API
  */
 class Voyado_API {
-
 	/**
 	 * @var mixed
 	 */
@@ -22,13 +21,7 @@ class Voyado_API {
 	/*
 	 * @var mixed
 	 */
-	/*
-	 * @var mixed
-	 */
 	var $url;
-	/*
-	 * @var string
-	 */
 	/*
 	 * @var string
 	 */
@@ -36,20 +29,11 @@ class Voyado_API {
 	/*
 	 * @var string
 	 */
-	/*
-	 * @var string
-	 */
 	var $version = 'v2';
 	/*
 	 * @var string
 	 */
-	/*
-	 * @var string
-	 */
-	var $contactType = 'member';
-	/*
-	 * @var string
-	 */
+	var $contactType = 'Contact';
 	/*
 	 * @var string
 	 */
@@ -57,13 +41,7 @@ class Voyado_API {
 	/*
 	 * @var mixed
 	 */
-	/*
-	 * @var mixed
-	 */
 	var $errors = false;
-	/*
-	 * @var mixed
-	 */
 	/*
 	 * @var mixed
 	 */
@@ -71,20 +49,11 @@ class Voyado_API {
 	/*
 	 * @var int
 	 */
-	/*
-	 * @var int
-	 */
 	var $default_error_HTTP_Code = 400;
 	/*
 	 * @var mixed
 	 */
-	/*
-	 * @var mixed
-	 */
 	var $errorMessage;
-	/*
-	 * @var string
-	 */
 	/*
 	 * @var string
 	 */
@@ -156,10 +125,24 @@ class Voyado_API {
 
 			return $body;
 		} else {
+			$this->log_errors($this->get_errors($response), __FUNCTION__);
+
 			return false;
 		}
 
 		return $body;
+	}
+
+	/**
+	 * Send errors to log/debug file
+	 *
+	 * @param [type] $error
+	 * @param string $where
+	 * @return void
+	 */
+	public function log_errors($error, $where = "func") {
+		if( defined('plugin_error_log') ) 
+			error_log($where."() : ".$error."\r\n", 3, plugin_error_log);
 	}
 
 	/**
@@ -188,6 +171,9 @@ class Voyado_API {
 			$this->HTTP_Code = $this->default_error_HTTP_Code;
 		}
 
+		$body = wp_remote_retrieve_body( $response );
+		$body = json_decode( $body, true );
+
 		if ( $this->HTTP_Code == 200 ) {
 			$body = wp_remote_retrieve_body( $response );
 			$body = json_decode( $body, true );
@@ -199,8 +185,7 @@ class Voyado_API {
 			// 409	- MultipleMatches
 			// 500	- InvalidSystemConfiguration
 
-			$body = wp_remote_retrieve_body( $response );
-			$body = json_decode( $body, true );
+			$this->log_errors($this->get_errors($response), __FUNCTION__);
 
 			return false;
 		}
@@ -224,6 +209,7 @@ class Voyado_API {
 
 		$args = array(
 			"email" => ( !empty( $email ) && is_email( $email ) ) ? $email : false,
+			"contactType" => $this->contactType,
 			"storeExternalId" => $this->storeExternalId,
 			"createAsUnapproved" => false,
 			"preferences" => array(
@@ -259,6 +245,8 @@ class Voyado_API {
 			// 409	- ApprovedContactWithKeyExists, ContactWithKeyIsBeingCreated
 			// 422	- ValidationError
 
+			$this->log_errors($this->get_errors($response), __FUNCTION__);
+
 			return false;
 		}
 
@@ -283,7 +271,7 @@ class Voyado_API {
 			$this->errorMessage = $content = ( isset( $content['detail'] ) ) ? $content['detail'] : __( 'Data format error.', '' );
 		}
 
-		return array( 'error' => $content );
+		return $content;
 	}
 
 	/**

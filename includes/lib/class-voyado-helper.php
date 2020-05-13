@@ -3,7 +3,7 @@
 /**
  * Post type Admin Helper file.
  *
- * @package WordPress Plugin Template/Includes
+ * @package Voyado_Subscribe/Includes
  */
 
 if (!defined('ABSPATH')) {
